@@ -66,7 +66,7 @@ contract DEX {
       require(msg.value > 0, "Cannot swap 0 ETH");
       uint256 ethReserve = address(this).balance.sub(msg.value); //Calculate balance 'before' adding msg.value
       uint256 tokenReserve = token.balanceOf(address(this));
-      uint256 tokenOutput = price(msg.value, ethReserve, tokenReserve);
+      tokenOutput = price(msg.value, ethReserve, tokenReserve);
       
       require(token.transfer(msg.sender, tokenOutput), "ethToToken(): reverted swap");
       emit EthToTokenSwap(msg.sender, "Eth to Baloons", msg.value, tokenOutput);

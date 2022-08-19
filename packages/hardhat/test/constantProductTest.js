@@ -10,7 +10,7 @@ const { solidity } = require("@nomicfoundation/hardhat-chai-matchers");
  * @dev additional TODO: Write edge cases; putting in zero as inputs, or whatever.
  * @dev Harshit will be producing auto-grading tests in one of the next PRs. 
  */
-describe("🚩 Challenge 3: ⚖️ 🪙 Simple DEX", function () {
+describe("🚩 Challenge 4: ⚖️ 🪙 Simple DEX", function () {
   this.timeout(45000);
 
   let dexContract;
