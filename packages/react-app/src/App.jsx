@@ -260,13 +260,14 @@ function App(props) {
 
   const EthToTokenSwapEvents = useEventListener(readContracts, "DEX", "EthToTokenSwap", localProvider, 1);
   console.log("⟠ -->🎈 EthToTokenSwapEvents:", EthToTokenSwapEvents);
-  // const TokenToEthSwapEvents = useEventListener(readContracts, "DEX", "TokenToEthSwap", 1);
-  // // console.log("🎈-->⟠ TokenToEthSwapEvents:", TokenToEthSwapEvents);
-  // const LiquidityProvidedEvents = useEventListener(readContracts, "DEX", "LiquidityProvided", 1);
-  // // console.log("➕ LiquidityProvidedEvents:", LiquidityProvidedEvents);
-  // const LiquidityRemovedEvents = useEventListener(readContracts, "DEX", "LiquidityRemoved", 1);
-  // // console.log("➖ LiquidityRemovedEvents:", LiquidityRemovedEvents);
-
+  const TokenToEthSwapEvents = useEventListener(readContracts, "DEX", "TokenToEthSwap", localProvider, 1);
+  console.log("🎈-->⟠ TokenToEthSwapEvents:", TokenToEthSwapEvents);
+  const LiquidityProvidedEvents = useEventListener(readContracts, "DEX", "LiquidityProvided", localProvider, 1);
+  console.log("➕ LiquidityProvidedEvents:", LiquidityProvidedEvents);
+  const LiquidityRemovedEvents = useEventListener(readContracts, "DEX", "LiquidityRemoved", localProvider, 1);
+  console.log("➖ LiquidityRemovedEvents:", LiquidityRemovedEvents);
+  const ApprovalEvents = useEventListener(readContracts, "Balloons", "Approval", localProvider, 1)
+  console.log("ApprovalEvents:", ApprovalEvents);
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
@@ -375,6 +376,27 @@ function App(props) {
             mainnetProvider={mainnetProvider}
             startBlock={1}
           />
+
+          <div style={{ width: 600, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+            <h2>
+              Approval Events
+              <br />
+              "😎 Owner | Spender | Amount "
+            </h2>
+            <List
+              bordered
+              dataSource={ApprovalEvents}
+              renderItem={item => {
+                return (
+                  <List.Item key={item.blockNumber + "_" + item.args[0].toString()}>
+                    <Address address={item.args[0]} ensProvider={mainnetProvider} fontSize={16} />
+                    <Address address={item.args[1]} ensProvider={mainnetProvider} fontSize={16} />
+                    <TokenBalance balance={item.args[2]} provider={localProvider} />
+                  </List.Item>
+                );
+              }}
+            />
+          </div>
         </Route>
         }
         <Route exact path="/debug">
